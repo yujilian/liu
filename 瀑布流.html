@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin: 0; padding: 0;}
+        ul{
+            float:left;
+            width: 280px;
+            border: 1px solid #000;
+            margin: 20px;
+        }
+        li{ list-style: none; margin: 10px; width: 260px;}
+        #box{
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        function ran(n,m){
+            return parseInt(Math.random()*(m-n)+n)
+        }
+        function createLi(){
+            var oLi=document.createElement('li');
+            oLi.style.height=ran(100,300)+'px';
+            oLi.style.background='rgb('+ran(0,256)+','+ran(0,256)+','+ran(0,256)+')';
+            return oLi;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aUl=oBox.children;
+            var arr=[];
+            
+            function createUp(){
+                for(var i=0;i<30;i++){
+                    var oLi=createLi();
+                    for(var j=0;j<3;j++){
+                        arr.push(aUl[j])
+                    }
+                    arr.sort(function(n1,n2){
+                        return n1.offsetHeight-n2.offsetHeight;
+                    });
+                    arr[0].appendChild(oLi);
+                }
+            }
+            createUp();
+            window.onscroll=function(){
+                var clientH=document.documentElement.clientHeight;
+                var scrollT=document.documentElement.scrollTop||document.body.scrollTop;
+                var oBoxH=document.body.offsetHeight;
+                if((scrollT+clientH)>=oBoxH){
+                    createUp();
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul>
+
+    </ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+</body>
+</html>
